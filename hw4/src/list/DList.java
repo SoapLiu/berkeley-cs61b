@@ -52,7 +52,9 @@ public class DList {
    */
   public DList() {
     //  Your solution here.
-	  newNode(Integer.MIN_VALUE,head,head);
+	  head = newNode(null,head,head);
+	  head.next = head;
+	  head.prev = head;
 	  size = 0;
   }
 
@@ -81,9 +83,9 @@ public class DList {
    */
   public void insertFront(Object item) {
     // Your solution here.
-		  head.next.prev = newNode(item,head,head.next);
-		  head.next = newNode(item,head,head.next);
-		  size++;
+	  head.next.prev = newNode(item,head,head.next);
+	  head.next = head.next.prev;
+      size++;
   }
 
   /**
@@ -94,7 +96,8 @@ public class DList {
   public void insertBack(Object item) {
     // Your solution here.
 	  head.prev.next = newNode(item,head.prev,head);
-	  head.prev = newNode(item,head.prev,head);
+	  head.prev = head.prev.next;
+	  size++;
   }
 
   /**
@@ -170,7 +173,7 @@ public class DList {
     // Your solution here.
 	  if(size != 0) {
 		  node.next.prev = newNode(item,node,node.next);
-		  node.next = newNode(item,node,node.next);
+		  node.next = node.next.prev;
 		  size++;
 	  }
   }
@@ -186,7 +189,7 @@ public class DList {
     // Your solution here.
 	  if(size != 0) {
 		  node.prev.next = newNode(item,node.prev,node);
-		  node.prev = newNode(item,node.prev,node);
+		  node.prev = node.prev.next;
 		  size++;
 	  }
   }
@@ -203,6 +206,17 @@ public class DList {
 		  size--;
 	  }
   }
+  
+  public String toString() {
+	    String result = "[  ";
+	    DListNode current = head.next;
+	    while (current != head) {
+	      result = result + current.item + "  ";
+	      current = current.next;
+	    }
+	    return result + "]";
+	  }
+
 
   /**
    *  toString() returns a String representation of this DList.
@@ -215,10 +229,48 @@ public class DList {
 
   public static void main(String[] args) {
 	    DList l = new DList();
-	    System.out.println("### TESTING insertFront ###\nEmpty list is " + l);
-	    l.insertFront(9);
-	    System.out.println("\nInserting 9 at front.\nList with 9 is " + l);
-	    l.insertFront(8);
-	    System.out.println("\nInserting 8 at front.\nList with 8 and 9 is " + l);
-  }
+		System.out.println("\nTesting Constructor");
+	    System.out.println("is empty? should be true: " + l.isEmpty());
+	    System.out.println("should be zero length? : " + l.length());
+	    System.out.println("should be [  ]:  " + l);
+	    
+	    System.out.println("\nTesting insertFront");
+	    l.insertFront(1);
+	    System.out.println("is empty? should be false: " + l.isEmpty());
+	    System.out.println("should be 1 length? : " + l.length());
+	    System.out.println("should be [  1  ]:  " + l);
+	    
+	    l.insertFront(2);
+	    System.out.println("\nadd 2 to front of this list ");
+	    System.out.println("should be [  2  1  ]:  " + l);
+
+	    l.insertBack(3);
+	    System.out.println("\nadd 3 to tail of this list ");
+	    System.out.println("should be [  2  1  3  ]:  " + l);
+	    
+		System.out.println("\nTesting next method");
+		DListNode tNode = l.next(l.front());
+	    System.out.println("should be [  1  ]:  " + tNode.item);
+	    tNode = l.next(tNode);
+	    System.out.println("should be [  3  ]:  " + tNode.item);
+
+		System.out.println("\nTesting prev method");
+		tNode = l.prev(tNode);
+	    System.out.println("should be [  1  ]:  " + tNode.item);
+
+		System.out.println("\nTesting insertBefore method");
+		l.insertBefore(5, tNode);
+		System.out.println("should be [  2  5  1  3 ]: " + l);
+		
+		System.out.println("\nTesting insertAfter method");
+		l.insertAfter(6, tNode);
+		System.out.println("should be [  2  5  1  6  3 ]: " + l);
+		
+		System.out.println("\nTesting remove method");
+		l.remove(tNode);
+		System.out.println("should be [  2  5  6  3  ]: " + l);
+		System.out.println("the length of this list should be 4 : " + l.length());
+
+
+	    }
 }
