@@ -4,7 +4,6 @@ import list.*;
 
 public class ListSorts {
 
-  private final static int SORTSIZE = 1000;
 
   /**
    *  makeQueueOfQueues() makes a queue of queues, each containing one item
@@ -191,8 +190,8 @@ public class ListSorts {
     quickSort(q);
     System.out.println(q.toString());
 
-    /* Remove these comments for Part III.
     Timer stopWatch = new Timer();
+    int SORTSIZE = 1000;
     q = makeRandom(SORTSIZE);
     stopWatch.start();
     mergeSort(q);
@@ -207,7 +206,59 @@ public class ListSorts {
     stopWatch.stop();
     System.out.println("Quicksort time, " + SORTSIZE + " Integers:  " +
                        stopWatch.elapsed() + " msec.");
-    */
+    
+    SORTSIZE = 10000;
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    mergeSort(q);
+    stopWatch.stop();
+    System.out.println("Mergesort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    stopWatch.reset();
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    quickSort(q);
+    stopWatch.stop();
+    System.out.println("Quicksort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    
+    SORTSIZE = 100000;
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    mergeSort(q);
+    stopWatch.stop();
+    System.out.println("Mergesort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    stopWatch.reset();
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    quickSort(q);
+    stopWatch.stop();
+    System.out.println("Quicksort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    
+    
+    SORTSIZE = 1000000;
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    mergeSort(q);
+    stopWatch.stop();
+    System.out.println("Mergesort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    stopWatch.reset();
+    q = makeRandom(SORTSIZE);
+    stopWatch.start();
+    quickSort(q);
+    stopWatch.stop();
+    System.out.println("Quicksort time, " + SORTSIZE + " Integers:  " +
+                       stopWatch.elapsed() + " msec.");
+
+    
   }
 
 }
